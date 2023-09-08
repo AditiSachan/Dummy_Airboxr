@@ -1,0 +1,15 @@
+{
+  "name": "dummy_airboxr",
+  "version": "1.0.0",
+  "description": "Dummy repo with dummy code and test script",
+  "main": "sample.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.6.4"
+  }
+}
