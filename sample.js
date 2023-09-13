@@ -1,6 +1,6 @@
 function add(a, b) {
     console.log("Hi, this is testing");
-    console.log("Hi, testing again");
+    console.log("Hi, please work");
     return a + b;
 }
 
