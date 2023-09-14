@@ -9,6 +9,9 @@ jobs:
   merge_request:
     runs-on: ubuntu-latest
     steps:
+      - name: Wait for Node.js CI Workflow to Complete
+        run: sleep 60s  # You can adjust the sleep duration as needed
+
       - name: Check if merged to main
         run: |
           if [[ "${{ github.event.pull_request.base.ref }}" == "main" && "${{ github.event.pull_request.merged }}" == "true" ]]; then
