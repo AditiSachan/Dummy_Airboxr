@@ -54,5 +54,3 @@ jobs:
         run: |
           echo "Node.js version: $(node --version)"
           echo "npm version: $(npm --version)"
-      - name: Check Jest Configuration
-        run: cat jest.config.js
