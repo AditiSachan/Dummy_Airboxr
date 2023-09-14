@@ -20,6 +20,9 @@ jobs:
           fi
         id: check_merged
 
+      - name: Add node_modules/.bin to PATH
+        run: export PATH="./node_modules/.bin:$PATH"
+        
       - name: Run Tests
         if: steps.check_merged.outputs.run_tests == 'true'
         run: |
