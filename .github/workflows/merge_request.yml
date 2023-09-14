@@ -6,7 +6,7 @@ on:
       - closed
 
 jobs:
-  merge_request:
+  test_after_merging:
     runs-on: ubuntu-latest
     steps:
       - name: Wait for Node.js CI Workflow to Complete
