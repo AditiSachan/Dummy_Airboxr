@@ -26,7 +26,7 @@ jobs:
       - name: Add node_modules/.bin to PATH
         run: export PATH="./node_modules/.bin:$PATH"
         
-      - name: Run Tests
+      - name: Run playwright tests
         if: steps.check_merged.outputs.run_tests == 'true'
         run: |
           # Trigger the 'test' job in the main workflow
