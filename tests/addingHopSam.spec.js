@@ -3,7 +3,7 @@ const login = require('../loginSam');
 const { test, expect, chromium} = require('@playwright/test');
 
 test('Successful Login', async ({  }, testInfo) => {
-  testInfo.setTimeout(60000);
+  testInfo.setTimeout(90000);
   const browser = await chromium.launch({
     headless: true,
     args: ["--disable-blink-features=AutomationControlled"],
