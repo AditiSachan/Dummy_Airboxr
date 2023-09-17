@@ -1,7 +1,9 @@
 async function login(page, email, password) {
     // Navigate to the login page
-    await page.goto('https://app.airboxr.com/login');
-  
+    console.log('Navigating to the login page...');
+
+    await page.goto('https://app.airboxr.com/login',  { timeout: 60000 });
+    console.log('Login page loaded successfully.');
     // Click on "Sign in with Google"
     await page.click('text=Sign in with Google');
   
