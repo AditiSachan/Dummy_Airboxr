@@ -6,31 +6,35 @@ on:
       - closed
 
 jobs:
-  test_after_merging:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Wait for Node.js CI Workflow to Complete
-        run: sleep 60s  # You can adjust the sleep duration as needed
-
-      - name: Check if merged to main
-        run: |
-          if [[ "${{ github.event.pull_request.base.ref }}" == "main" && "${{ github.event.pull_request.merged }}" == "true" ]]; then
-            echo "Merged to main, triggering tests."
-            echo "::set-output name=run_tests::true"
-          else
-            echo "Not merged to main, no tests to run."
-            echo "::set-output name=run_tests::false"
-          fi
-        id: check_merged
-
-      - name: Add node_modules/.bin to PATH
-        run: export PATH="./node_modules/.bin:$PATH"
-        
-      - name: Run playwright tests
-        if: steps.check_merged.outputs.run_tests == 'true'
-        run: |
-          # Trigger the 'test' job in the main workflow
-          curl -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/actions/workflows/main.yml/dispatches \
-            -d '{"ref":"main"}'
+  test_main_after_mergin:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Wait for Before Merge Workflow to Complete
+          run: sleep 60s  # You can adjust the sleep duration as needed
+  
+        - name: Check if PR was merged
+          run: |
+            if [[ "${{ github.event.workflow_run.conclusion }}" == "success" ]]; then
+              echo "Pull request was successfully merged, triggering Playwright tests on main branch."
+              # Add any additional conditions you need here before triggering the tests.
+              echo "::set-output name=run_tests::true"
+            else
+              echo "No PR was merged, no additional tests to run."
+              echo "::set-output name=run_tests::false"
+            fi
+          id: check_merged
+  
+        - name: Checkout code
+          uses: actions/checkout@v2
+  
+        - name: Set up Node.js
+          uses: actions/setup-node@v2
+          with:
+            node-version: '16'
+  
+        - name: Install dependencies
+          run: npm install
+  
+        - name: Run Playwright Tests
+          if: steps.check_merged.outputs.run_tests == 'true'
+          run: npx playwright test
