@@ -1,4 +1,4 @@
-name: before merge main testing CI
+name: Before merge main testing CI
 
 on:
   push:
@@ -47,6 +47,9 @@ jobs:
       - name: Add Executable Permissions to Jest
         run: chmod +x node_modules/.bin/jest
 
+      - name: Install Playwright browsers
+        run: npx playwright install
+
       - name: Run playwright tests
         run: npx playwright test
 
@@ -54,3 +57,7 @@ jobs:
         run: |
           echo "Node.js version: $(node --version)"
           echo "npm version: $(npm --version)"
+          echo "GitHub Actions Runner Info"
+          echo "---------------------------------------------"
+          npx playwright info
+          echo "---------------------------------------------"
