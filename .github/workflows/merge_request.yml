@@ -1,4 +1,4 @@
-name: Merge Request Workflow
+name: After merge main testing
 
 on:
   pull_request:
