@@ -2,7 +2,8 @@
 const login = require('../loginSam'); 
 const { test, expect, chromium} = require('@playwright/test');
 
-test('Successful Login', async ({ }) => {
+test('Successful Login', async ({ }, testInfo) => {
+  testInfo.setTimeout(90000);
   const browser = await chromium.launch({
     headless: false,
     args: ["--disable-blink-features=AutomationControlled", "--disable-popup-blocking"],
@@ -15,4 +16,4 @@ test('Successful Login', async ({ }) => {
 
   await page.waitForSelector('text=Connect your Shopify store');
   console.log("hurray");
-}, { timeout: 90000 });
+});
