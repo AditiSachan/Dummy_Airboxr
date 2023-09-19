@@ -40,15 +40,12 @@ jobs:
         
         - name: Add node_modules/.bin to PATH
           run: export PATH="./node_modules/.bin:$PATH"
-            
-        - name: Add Execute Permissions to Playwright
-          run: chmod +x node_modules/.bin/playwright
 
         - name: Install Chrome Dependencies
           run: |
             sudo apt-get update
             sudo apt-get install xvfb
-            sudo apt-get install -y libxss1 libappindicator1 libindicator7  # Install Chrome dependencies
+            sudo apt-get install -y libxss1 libappindicator1 libindicator7 libasound2 # Install Chrome dependencies
             Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
             export DISPLAY=:99
         
