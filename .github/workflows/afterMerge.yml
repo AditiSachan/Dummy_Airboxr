@@ -41,8 +41,9 @@ jobs:
             sudo apt-get install xvfb
             Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
             export DISPLAY=:99
-        
-            # Start the X server with the virtual display
+  
+        - name: Run the tests
+          run: |
             xvfb-run -a npx playwright test --headed
         
         - name: Run Playwright tests in headed mode
