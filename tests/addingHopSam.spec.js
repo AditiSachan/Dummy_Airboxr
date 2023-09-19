@@ -26,5 +26,5 @@ test('Successful Login', async ({  }) => {
 
   // Perform assertion to validate the navigation
   expect(browseHopsText).toBe('You will find predesigned data automations on this page.');
-
+  console.log("hurray");
 });
