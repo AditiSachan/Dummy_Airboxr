@@ -61,12 +61,3 @@ jobs:
       - name: Run the tests
         run: |
           xvfb-run -a npx playwright test --headed
-
-      - name: Debug Environment
-        run: |
-          echo "Node.js version: $(node --version)"
-          echo "npm version: $(npm --version)"
-          echo "GitHub Actions Runner Info"
-          echo "---------------------------------------------"
-          npx playwright info
-          echo "---------------------------------------------"
