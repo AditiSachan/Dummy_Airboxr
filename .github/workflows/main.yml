@@ -56,9 +56,13 @@ jobs:
           sudo apt-get install xvfb
           Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
           export DISPLAY=:99
-
-      - name: Run playwright tests
-        run: npx playwright test
+      
+          # Start the X server with the virtual display
+          Xorg -noreset +extension GLX +extension RANDR +extension RENDER -logfile ./Xorg.0.log -config /etc/X11/xorg.conf :99
+      
+      - name: Run Playwright tests in headed mode
+        run: |
+          xvfb-run npx playwright test --headed
 
       - name: Debug Environment
         run: |
