@@ -34,7 +34,13 @@ jobs:
   
         - name: Install dependencies
           run: npm install
+        
+        - name: Add node_modules/.bin to PATH
+          run: export PATH="./node_modules/.bin:$PATH"
             
+        - name: Add Execute Permissions to Playwright
+          run: chmod +x node_modules/.bin/playwright
+
         - name: Set up XVFB (virtual display)
           run: |
             sudo apt-get update
@@ -42,7 +48,7 @@ jobs:
             Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
             export DISPLAY=:99
   
-        - name: Run the tests
+        - name: Run the tests in headed mode
           run: |
             xvfb-run -a npx playwright test --headed
         
