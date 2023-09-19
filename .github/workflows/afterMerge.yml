@@ -7,7 +7,7 @@ on:
 
 jobs:
   test_main_after_mergin:
-      runs-on: ubuntu-latest
+      runs-on: windows-latest # Use a Windows runner
       steps:
         - name: Wait for Before Merge Workflow to Complete
           run: sleep 60s  # You can adjust the sleep duration as needed
@@ -31,40 +31,17 @@ jobs:
           uses: actions/setup-node@v2
           with:
             node-version: '16'
-        
-        - name: Clear Node Modules and Cache
-          run: |
-            rm -rf node_modules
-            npm cache clean --force
 
         - name: Install dependencies
           run: npm install
 
-        - name: Check Jest Permissions
-          run: ls -l node_modules/.bin/jest
-  
-        - name: Add node_modules/.bin to PATH
-          run: export PATH="./node_modules/.bin:$PATH"
-        
-        - name: Add Executable Permissions to Jest
-          run: chmod +x node_modules/.bin/jest
-  
         - name: Install Playwright browsers
           run: npx playwright install
-
-        - name: Install Chrome Dependencies
-          run: |
-            sudo apt-get update
-            sudo apt-get install xvfb
-            sudo apt-get install -y libxss1 libappindicator1 libindicator7 libasound2 # Install Chrome dependencies
-            Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-            export DISPLAY=:99
-        
         
         - name: Run Playwright tests in headed mode.
           run: |
             if [[ ${{ steps.check_merged.outputs.run_tests }} == 'true' ]]; then
-              xvfb-run npx playwright test --headed
+              npx playwright test --headed
             else
               echo "Tests are not scheduled to run."
             fi
