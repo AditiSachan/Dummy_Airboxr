@@ -36,7 +36,7 @@ jobs:
           run: npm install
 
         - name: Install Playwright browsers
-          run: npx playwright install
+          run: npm playwright install
         
         - name: Add node_modules/.bin to PATH
           run: export PATH="./node_modules/.bin:$PATH"
