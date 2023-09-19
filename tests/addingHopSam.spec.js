@@ -2,11 +2,10 @@
 const login = require('../loginSam'); 
 const { test, expect, chromium} = require('@playwright/test');
 
-test('Successful Login', async ({  }, testInfo) => {
-  testInfo.setTimeout(90000);
+test('Successful Login', async ({  }) => {
   const browser = await chromium.launch({
-    headless: true,
-    args: ["--disable-blink-features=AutomationControlled"],
+    headless: false,
+    args: ["--disable-blink-features=AutomationControlled", "--disable-popup-blocking"],
   });
   const context = await browser.newContext({});
   const page = await context.newPage();

@@ -2,17 +2,20 @@ async function login(page, email, password) {
     // Navigate to the login page
     console.log('Navigating to the login page...');
 
-    await page.goto('https://app.airboxr.com/login',  { timeout: 90000 });
+    await page.goto('https://app.airboxr.com/login');
     console.log('Login page loaded successfully.');
+
     // Click on "Sign in with Google"
     await page.click('text=Sign in with Google');
-  
-    // Wait for the Google sign-in popup to open
-    const popup = await page.waitForEvent('popup');
+
     console.log('waiting for popup to found');
+
+     // Wait for the Google sign-in popup to open
+    const popup = await page.waitForEvent('popup');
     if (!popup) {
         throw new Error('Popup not found');
     }
+    
     // popup not found???
     console.log('popup found');
     // Wait for the Google sign-in page to load
