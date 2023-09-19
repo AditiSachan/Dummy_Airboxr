@@ -30,10 +30,10 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
-          
+
       - name: Clear Node Modules and Cache
         run: |
-          rd /s /q node_modules
+          Remove-Item -Path node_modules -Recurse -Force
           npm cache clean --force
 
       - name: Install dependencies
