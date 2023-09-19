@@ -63,7 +63,11 @@ jobs:
         
         - name: Run Playwright tests in headed mode.
           run: |
-            if: steps.check_merged.outputs.run_tests == 'true'
-            xvfb-run npx playwright test --headed
+            if [[ ${{ steps.check_merged.outputs.run_tests }} == 'true' ]]; then
+              xvfb-run npx playwright test --headed
+            else
+              echo "Tests are not scheduled to run."
+            fi
+
           
           
