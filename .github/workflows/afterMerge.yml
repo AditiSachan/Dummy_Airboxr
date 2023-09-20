@@ -44,13 +44,10 @@ jobs:
         - name: Install Playwright browsers
           run: npx playwright install
         
-        - name: Run Playwright tests in headed mode.
+        - name: Run Playwright tests
+          if: ${{ steps.check_merged.outputs.run_tests == 'true' }}
           run: |
-            if [[ ${{ steps.check_merged.outputs.run_tests }} == 'true' ]]; then
-              npx playwright test --headed
-            else
-              echo "Tests are not scheduled to run."
-            fi
+            npx playwright test --headed
 
           
           
