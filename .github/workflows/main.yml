@@ -44,12 +44,15 @@ jobs:
 
       - name: Load environment file
         run: |
-          if exist .env (
-            echo Loading environment variables from .env
-            set -a
-            . .env
-            set +a
-          )
+          if (Test-Path .env) {
+            Write-Host "Loading environment variables from .env"
+            $env:DOTENV_LOADED = $true
+            Get-Content .env | ForEach-Object { 
+              if ($_ -match '\s*([^#][^\=]*)\s*\=\s*(.+)') {
+                $env[$matches[1].Trim()] = $matches[2].Trim()
+              }
+            }
+          }
 
       - name: Install Playwright browsers
         run: npx playwright install
