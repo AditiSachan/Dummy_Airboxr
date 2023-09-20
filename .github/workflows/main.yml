@@ -33,15 +33,24 @@ jobs:
 
       - name: Clear Node Modules and Cache
         run: |
-          Remove-Item -Path node_modules -Recurse -Force
+          rmdir /s /q node_modules
           npm cache clean --force
 
       - name: Install dependencies
         run: npm install
 
+      - name: Install Chrome with Chocolatey
+        run: choco install googlechrome --yes
+
+      - name: Add Chrome to PATH
+        run: |
+          echo "::add-path::C:\Program Files\Google\Chrome\Application"
+          
       - name: Install Playwright browsers
         run: npx playwright install
-
+    
+      - name: Check Chrome installation
+        run: where chrome.exe
       - name: Run the tests
         run: |
           npx playwright test --headed
