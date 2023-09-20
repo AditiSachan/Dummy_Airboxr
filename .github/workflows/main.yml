@@ -33,7 +33,7 @@ jobs:
 
       - name: Clear Node Modules and Cache
         run: |
-          rmdir /s /q node_modules
+          Remove-Item -Path node_modules -Recurse -Force
           npm cache clean --force
 
       - name: Install dependencies
@@ -45,7 +45,7 @@ jobs:
       - name: Add Chrome to PATH
         run: |
           echo "::add-path::C:\Program Files\Google\Chrome\Application"
-          
+
       - name: Install Playwright browsers
         run: npx playwright install
     
