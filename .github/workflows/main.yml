@@ -60,5 +60,5 @@ jobs:
       - name: Check Chrome installation
         run: where chrome.exe
       - name: Run the tests
-        run: |
-          npx playwright test --headed
+        run: npx playwright test --headed --browser=chromium
+

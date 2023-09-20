@@ -46,8 +46,8 @@ jobs:
         
         - name: Run Playwright tests
           if: ${{ steps.check_merged.outputs.run_tests == 'true' }}
-          run: |
-            npx playwright test --headed
+          run: npx playwright test --headed --browser=chromium
+
 
           
           
