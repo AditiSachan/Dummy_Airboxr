@@ -42,9 +42,14 @@ jobs:
       - name: Install Chrome with Chocolatey
         run: choco install googlechrome --yes
 
-      - name: Add Chrome to PATH
+      - name: Load environment file
         run: |
-          echo "::add-path::C:\Program Files\Google\Chrome\Application"
+          if exist .env (
+            echo Loading environment variables from .env
+            set -a
+            . .env
+            set +a
+          )
 
       - name: Install Playwright browsers
         run: npx playwright install
